@@ -1,0 +1,84 @@
+/* ==================== DISPLAY TYPOGRAPHY ==================== */
+
+/* Expression line shows the history of the current operation */
+.calc__expression {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  color: rgb(var(--color-on-surface-variant));
+  min-height: 18px;
+  text-align: right;
+  word-break: break-all;
+}
+
+.calc__value {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 48px;
+  font-weight: 500;
+  color: rgb(var(--color-on-surface));
+  line-height: 1;
+  text-align: right;
+  word-break: break-all;
+  /* Smooth font-size transitions prevent jarring jumps when digit count crosses thresholds */
+  transition: font-size 0.1s ease;
+}
+
+/* Fallback sizes activated by JS when the number is too long for the display */
+.calc__value.small   { font-size: 34px; }
+.calc__value.x-small { font-size: 24px; }
+
+/* ==================== BUTTON BASE ==================== */
+.calc__btn {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  border: none;
+  cursor: pointer;
+  padding: 24px 0;
+  transition: background 0.1s ease, color 0.1s ease, transform 0.08s ease;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.calc__btn:active { transform: scale(0.94); }
+
+/* Number buttons sit on the low surface, feel recessed */
+.calc__btn--num {
+  background: rgb(var(--color-surface));
+  color: rgb(var(--color-on-surface));
+}
+.calc__btn--num:hover { background: rgb(var(--color-surface-container)); }
+
+/* Operators use primary color text to separate them visually from digits
+   while sharing the same flat background for visual uniformity */
+.calc__btn--op {
+  background: rgb(var(--color-surface));
+  color: rgb(var(--color-primary));
+  /* 24px corrects the optical weight imbalance of unicode math glyphs
+     which render visually smaller than digits at the same point size */
+  font-size: 24px;
+  font-weight: 500;
+}
+.calc__btn--op:hover { background: rgb(var(--color-surface-container)); }
+
+/* Destructive actions (clear/backspace) use the error token on white —
+   `error` is calibrated for light-surface contrast; `on-error-container`
+   would look muddy outside its intended colored-fill context */
+.calc__btn--clear {
+  background: rgb(var(--color-surface));
+  color: rgb(var(--color-error));
+  font-size: 15px;
+}
+.calc__btn--clear:hover { background: rgb(var(--color-surface-container)); }
+
+/* Equals gets the primary gradient — the single bold accent in the design.
+   All other buttons share the flat surface to keep this one salient. */
+.calc__btn--eq {
+  background: var(--color-gradient-primary);
+  color: rgb(var(--color-on-primary));
+  font-size: 22px;
+  font-weight: 500;
+}
+.calc__btn--eq:hover { filter: brightness(1.08); }
+
+/* Zero spans two columns to match standard calculator layouts */
+.calc__btn--wide { grid-column: span 2; }
