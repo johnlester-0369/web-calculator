@@ -4,242 +4,16 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Calculator</title>
+
+  <!-- Google Fonts loaded via preconnect to minimize render-blocking time -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 
-  <style>
-    /* ==================== DESIGN TOKENS ==================== */
-    :root {
-      --light-color-primary: 68 114 210;
-      --light-color-on-primary: 255 255 255;
-      --light-color-primary-container: 221 232 254;
-      --light-color-on-primary-container: 26 48 95;
-      --light-color-secondary: 126 93 209;
-      --light-color-on-secondary: 255 255 255;
-      --light-color-secondary-container: 232 228 254;
-      --light-color-on-secondary-container: 54 38 94;
-      --light-color-tertiary: 168 72 181;
-      --light-color-on-tertiary: 255 255 255;
-      --light-color-tertiary-container: 247 222 250;
-      --light-color-on-tertiary-container: 75 28 81;
-      --light-color-surface: 255 255 255;
-      --light-color-on-surface: 0 0 0;
-      --light-color-surface-variant: 202 213 226;
-      --light-color-on-surface-variant: 50 65 87;
-      --light-color-surface-container-lowest: 255 255 255;
-      --light-color-surface-container-low: 248 250 252;
-      --light-color-surface-container: 241 245 249;
-      --light-color-surface-container-high: 227 233 241;
-      --light-color-surface-container-highest: 212 221 232;
-      --light-color-surface-bright: 255 255 255;
-      --light-color-surface-dim: 144 161 185;
-      --light-color-inverse-surface: 29 41 58;
-      --light-color-inverse-on-surface: 248 250 252;
-      --light-color-inverse-primary: 196 216 253;
-      --light-color-outline: 98 116 142;
-      --light-color-outline-variant: 144 161 185;
-      --light-color-scrim: 0 0 0;
-      --light-color-shadow: 0 0 0;
-      --light-color-error: 231 0 11;
-      --light-color-on-error: 254 242 242;
-      --light-color-error-container: 255 226 226;
-      --light-color-on-error-container: 130 24 26;
-      --light-color-success: 0 130 54;
-      --light-color-on-success: 240 253 244;
-      --light-color-success-container: 220 252 231;
-      --light-color-on-success-container: 13 84 43;
-      --light-color-warning: 225 113 0;
-      --light-color-on-warning: 255 251 235;
-      --light-color-warning-container: 254 243 198;
-      --light-color-on-warning-container: 123 51 6;
-      --light-color-info: 0 132 209;
-      --light-color-on-info: 240 249 255;
-      --light-color-info-container: 223 242 254;
-      --light-color-on-info-container: 2 74 112;
-      --light-color-gradient-primary: linear-gradient(135deg, rgb(53, 109, 232) 0%, rgb(23, 129, 175) 100%);
-      --light-color-gradient-secondary: linear-gradient(135deg, rgb(128, 87, 221) 0%, rgb(55, 109, 232) 100%);
-      --light-color-gradient-tertiary: linear-gradient(135deg, rgb(170, 68, 184) 0%, rgb(127, 88, 222) 100%);
-      --light-color-gradient-error: linear-gradient(135deg, rgb(210, 53, 43) 0%, rgb(174, 97, 20) 100%);
-      --light-color-gradient-success: linear-gradient(135deg, rgb(24, 143, 58) 0%, rgb(25, 138, 119) 100%);
-      --light-color-gradient-warning: linear-gradient(135deg, rgb(179, 92, 19) 0%, rgb(150, 113, 20) 100%);
-      --light-color-gradient-info: linear-gradient(135deg, rgb(23, 125, 194) 0%, rgb(24, 133, 154) 100%);
-
-      --color-primary: var(--light-color-primary);
-      --color-on-primary: var(--light-color-on-primary);
-      --color-primary-container: var(--light-color-primary-container);
-      --color-on-primary-container: var(--light-color-on-primary-container);
-      --color-secondary: var(--light-color-secondary);
-      --color-on-secondary: var(--light-color-on-secondary);
-      --color-secondary-container: var(--light-color-secondary-container);
-      --color-on-secondary-container: var(--light-color-on-secondary-container);
-      --color-tertiary: var(--light-color-tertiary);
-      --color-on-tertiary: var(--light-color-on-tertiary);
-      --color-tertiary-container: var(--light-color-tertiary-container);
-      --color-on-tertiary-container: var(--light-color-on-tertiary-container);
-      --color-surface: var(--light-color-surface);
-      --color-on-surface: var(--light-color-on-surface);
-      --color-surface-variant: var(--light-color-surface-variant);
-      --color-on-surface-variant: var(--light-color-on-surface-variant);
-      --color-surface-container-lowest: var(--light-color-surface-container-lowest);
-      --color-surface-container-low: var(--light-color-surface-container-low);
-      --color-surface-container: var(--light-color-surface-container);
-      --color-surface-container-high: var(--light-color-surface-container-high);
-      --color-surface-container-highest: var(--light-color-surface-container-highest);
-      --color-surface-bright: var(--light-color-surface-bright);
-      --color-surface-dim: var(--light-color-surface-dim);
-      --color-inverse-surface: var(--light-color-inverse-surface);
-      --color-inverse-on-surface: var(--light-color-inverse-on-surface);
-      --color-inverse-primary: var(--light-color-inverse-primary);
-      --color-outline: var(--light-color-outline);
-      --color-outline-variant: var(--light-color-outline-variant);
-      --color-scrim: var(--light-color-scrim);
-      --color-shadow: var(--light-color-shadow);
-      --color-error: var(--light-color-error);
-      --color-on-error: var(--light-color-on-error);
-      --color-error-container: var(--light-color-error-container);
-      --color-on-error-container: var(--light-color-on-error-container);
-      --color-success: var(--light-color-success);
-      --color-on-success: var(--light-color-on-success);
-      --color-success-container: var(--light-color-success-container);
-      --color-on-success-container: var(--light-color-on-success-container);
-      --color-warning: var(--light-color-warning);
-      --color-on-warning: var(--light-color-on-warning);
-      --color-warning-container: var(--light-color-warning-container);
-      --color-on-warning-container: var(--light-color-on-warning-container);
-      --color-info: var(--light-color-info);
-      --color-on-info: var(--light-color-on-info);
-      --color-info-container: var(--light-color-info-container);
-      --color-on-info-container: var(--light-color-on-info-container);
-      --color-gradient-primary: var(--light-color-gradient-primary);
-      --color-gradient-secondary: var(--light-color-gradient-secondary);
-      --color-gradient-tertiary: var(--light-color-gradient-tertiary);
-      --color-gradient-error: var(--light-color-gradient-error);
-      --color-gradient-success: var(--light-color-gradient-success);
-      --color-gradient-warning: var(--light-color-gradient-warning);
-      --color-gradient-info: var(--light-color-gradient-info);
-    }
-
-    /* ==================== RESET & BASE ==================== */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      font-family: 'DM Sans', sans-serif;
-      background-color: rgb(var(--color-surface-container-low));
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    /* ==================== CALCULATOR SHELL ==================== */
-    .calc {
-      background: rgb(var(--color-surface));
-      border-radius: 24px;
-      box-shadow:
-        0 1px 3px rgb(var(--color-shadow) / 0.06),
-        0 8px 24px rgb(var(--color-shadow) / 0.08),
-        0 0 0 1px rgb(var(--color-outline-variant) / 0.25);
-      width: 380px;
-      overflow: hidden;
-    }
-
-    /* ==================== DISPLAY ==================== */
-    .calc__display {
-      background: rgb(var(--color-surface-container-low));
-      padding: 28px 28px 22px;
-      border-bottom: 1px solid rgb(var(--color-outline-variant) / 0.4);
-      min-height: 124px;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      align-items: flex-end;
-      gap: 4px;
-    }
-
-    /* Expression line shows the history of the current operation */
-    .calc__expression {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 13px;
-      color: rgb(var(--color-on-surface-variant));
-      min-height: 18px;
-      text-align: right;
-      word-break: break-all;
-    }
-
-    .calc__value {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 48px;
-      font-weight: 500;
-      color: rgb(var(--color-on-surface));
-      line-height: 1;
-      text-align: right;
-      word-break: break-all;
-      /* Scale down automatically when the number is long */
-      transition: font-size 0.1s ease;
-    }
-
-    .calc__value.small { font-size: 34px; }
-    .calc__value.x-small { font-size: 24px; }
-
-    /* ==================== BUTTON GRID ==================== */
-    .calc__grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 1px;
-      background: rgb(var(--color-outline-variant) / 0.3);
-    }
-
-    .calc__btn {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 18px;
-      font-weight: 400;
-      border: none;
-      cursor: pointer;
-      padding: 24px 0;
-      transition: background 0.1s ease, color 0.1s ease, transform 0.08s ease;
-      user-select: none;
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    .calc__btn:active { transform: scale(0.94); }
-
-    /* Number buttons sit on the low surface, feel recessed */
-    .calc__btn--num {
-      background: rgb(var(--color-surface));
-      color: rgb(var(--color-on-surface));
-    }
-    .calc__btn--num:hover { background: rgb(var(--color-surface-container)); }
-
-    /* Operators use the container tint to separate them visually from digits */
-    .calc__btn--op {
-      background: rgb(var(--color-surface));
-      color: rgb(var(--color-primary));
-      font-size: 24px;
-      font-weight: 500;
-    }
-    .calc__btn--op:hover { background: rgb(var(--color-surface-container)); }
-
-    /* Clear / backspace use the error container so destructive actions read differently */
-    .calc__btn--clear {
-      background: rgb(var(--color-surface));
-      color: rgb(var(--color-error));
-      font-size: 15px;
-    }
-    .calc__btn--clear:hover { background: rgb(var(--color-surface-container)); }
-
-    /* Equals gets the primary gradient — the single bold accent in the design */
-    .calc__btn--eq {
-      background: var(--color-gradient-primary);
-      color: rgb(var(--color-on-primary));
-      font-size: 22px;
-      font-weight: 500;
-    }
-    .calc__btn--eq:hover { filter: brightness(1.08); }
-
-    /* Zero spans two columns to match standard calculator layouts */
-    .calc__btn--wide { grid-column: span 2; }
-  </style>
+  <!-- Load order matters: tokens must be declared before layout or components reference them -->
+  <link rel="stylesheet" href="styles/tokens.css" />
+  <link rel="stylesheet" href="styles/layout.css" />
+  <link rel="stylesheet" href="styles/components.css" />
 </head>
 <body>
 
@@ -247,14 +21,14 @@
 
     <div class="calc__display">
       <div class="calc__expression" id="expression" aria-live="polite" aria-label="Expression"></div>
-      <div class="calc__value" id="display" aria-live="polite" aria-label="Current value">0</div>
+      <div class="calc__value"      id="display"    aria-live="polite" aria-label="Current value">0</div>
     </div>
 
     <div class="calc__grid">
       <!-- Row 1 -->
-      <button class="calc__btn calc__btn--clear" data-action="clear" aria-label="All clear">AC</button>
+      <button class="calc__btn calc__btn--clear" data-action="clear"    aria-label="All clear">AC</button>
       <button class="calc__btn calc__btn--clear" data-action="backspace" aria-label="Backspace">⌫</button>
-      <button class="calc__btn calc__btn--op"    data-action="percent" aria-label="Percent">%</button>
+      <button class="calc__btn calc__btn--op"    data-action="percent"  aria-label="Percent">%</button>
       <button class="calc__btn calc__btn--op"    data-action="op" data-value="÷" aria-label="Divide">÷</button>
 
       <!-- Row 2 -->
@@ -277,137 +51,14 @@
 
       <!-- Row 5 -->
       <button class="calc__btn calc__btn--num calc__btn--wide" data-action="digit" data-value="0">0</button>
-      <button class="calc__btn calc__btn--num" data-action="decimal" aria-label="Decimal point">.</button>
-      <button class="calc__btn calc__btn--eq"  data-action="equals" aria-label="Equals">=</button>
+      <button class="calc__btn calc__btn--num"                 data-action="decimal" aria-label="Decimal point">.</button>
+      <button class="calc__btn calc__btn--eq"                  data-action="equals"  aria-label="Equals">=</button>
     </div>
 
   </div>
 
-  <script>
-    const display    = document.getElementById('display');
-    const expression = document.getElementById('expression');
-
-    // Calculator state — kept flat to make reset and read operations straightforward
-    let current  = '0';
-    let previous = null;
-    let operator = null;
-    let justEvaled = false;
-
-    const MAX_DIGITS = 12;
-
-    function updateDisplay() {
-      display.textContent = current;
-      // Shrink font when the number is too wide to fit the display comfortably
-      const len = current.replace('-', '').replace('.', '').length;
-      display.className = 'calc__value' + (len > 9 ? ' x-small' : len > 6 ? ' small' : '');
-    }
-
-    function setExpression(text) {
-      expression.textContent = text;
-    }
-
-    // Map display symbols to JS operators for eval-free arithmetic
-    const OPS = { '÷': (a, b) => a / b, '×': (a, b) => a * b, '−': (a, b) => a - b, '+': (a, b) => a + b };
-
-    function compute() {
-      if (previous === null || operator === null) return;
-      const a = parseFloat(previous);
-      const b = parseFloat(current);
-      const result = OPS[operator](a, b);
-      // Floating-point arithmetic can produce long decimals; toPrecision caps display noise
-      const formatted = parseFloat(result.toPrecision(10)).toString();
-      setExpression(`${previous} ${operator} ${current} =`);
-      current = formatted;
-      previous = null;
-      operator = null;
-      justEvaled = true;
-      updateDisplay();
-    }
-
-    document.querySelector('.calc__grid').addEventListener('click', (e) => {
-      const btn = e.target.closest('[data-action]');
-      if (!btn) return;
-
-      const action = btn.dataset.action;
-      const value  = btn.dataset.value;
-
-      if (action === 'digit') {
-        // After equals, a new digit starts a fresh entry rather than appending to the result
-        if (justEvaled) { current = ''; justEvaled = false; }
-        if (current === '0' && value !== '.') current = '';
-        if (current.length >= MAX_DIGITS) return;
-        current += value;
-        updateDisplay();
-      }
-
-      else if (action === 'decimal') {
-        if (justEvaled) { current = '0'; justEvaled = false; }
-        if (!current.includes('.')) current += '.';
-        updateDisplay();
-      }
-
-      else if (action === 'op') {
-        // Chain operations: pressing an operator mid-expression resolves the pending one first
-        if (previous !== null && !justEvaled) compute();
-        previous  = current;
-        operator  = value;
-        justEvaled = false;
-        setExpression(`${previous} ${operator}`);
-        current = '0';
-        updateDisplay();
-      }
-
-      else if (action === 'equals') {
-        compute();
-      }
-
-      else if (action === 'clear') {
-        current = '0'; previous = null; operator = null; justEvaled = false;
-        setExpression('');
-        updateDisplay();
-      }
-
-      else if (action === 'backspace') {
-        // Fall back to '0' rather than empty string so the display always has a valid numeric value
-        if (current.length > 1) current = current.slice(0, -1);
-        else current = '0';
-        updateDisplay();
-      }
-
-      else if (action === 'percent') {
-        // Percent divides the current operand by 100 in place, matching iOS calculator behaviour
-        current = (parseFloat(current) / 100).toString();
-        updateDisplay();
-      }
-    });
-
-    // Keyboard support so the calculator is usable without a mouse
-    document.addEventListener('keydown', (e) => {
-      if ('0123456789'.includes(e.key)) {
-        document.querySelector(`[data-value="${e.key}"]`)?.click();
-      } else if (e.key === '.') {
-        document.querySelector('[data-action="decimal"]').click();
-      } else if (e.key === '+') {
-        document.querySelector('[data-value="+"]').click();
-      } else if (e.key === '-') {
-        document.querySelector('[data-value="−"]').click();
-      } else if (e.key === '*') {
-        document.querySelector('[data-value="×"]').click();
-      } else if (e.key === '/') {
-        e.preventDefault();
-        document.querySelector('[data-value="÷"]').click();
-      } else if (e.key === 'Enter' || e.key === '=') {
-        document.querySelector('[data-action="equals"]').click();
-      } else if (e.key === 'Escape') {
-        document.querySelector('[data-action="clear"]').click();
-      } else if (e.key === 'Backspace') {
-        // Backspace removes the last digit rather than clearing everything
-        if (current.length > 1) current = current.slice(0, -1);
-        else current = '0';
-        updateDisplay();
-      }
-    });
-  </script>
+  <!-- defer keeps the script non-blocking and guarantees DOM availability without DOMContentLoaded -->
+  <script src="calculator.js" defer></script>
 
 </body>
 </html>
